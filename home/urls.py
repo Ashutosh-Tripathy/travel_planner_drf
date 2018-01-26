@@ -2,6 +2,6 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^travels/$', views.travel_list),
+    url(r'^travels/$', views.TravelList.as_view()),
 ]
 
