@@ -5,7 +5,7 @@ from .models import Travel
 from .serializers import TravelSerializer, UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
-from .permissions import IsAdminOrSelf, IsAdminOrManagerOrSelf
+from .permissions import IsAdminOrSelf, IsAdminOrManagerOrSelf, UserPermission
 
 # Create your views here.
 
@@ -21,18 +21,13 @@ class TravelList(generics.ListCreateAPIView):
 
 
 
-class UserList(generics.ListAPIView):
+class UserList(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticated, IsAdminOrManagerOrSelf)
-
-
-class UserCreate(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    permission_classes = (UserPermission, )
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticated, IsAdminOrManagerOrSelf)
+    permission_classes = (UserPermission, )
